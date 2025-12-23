@@ -146,3 +146,13 @@ button.active:hover {
   border: 1px solid #f5c6cb;
   display: block;
 }
+
+
+.avatarPreview {
+  width: 7vw;
+  height: 7vw;
+  border: 1px solid #111111;
+  border-radius: 5px;
+  display: none;
+  margin: auto;
+}
