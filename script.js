@@ -207,7 +207,7 @@ dropField.addEventListener('dragover', (e) => {
 
   function over() {
     dropField.style.opacity = '0';
-    dropField.style.pointerEvents = 'none';
+    dropField.style['pointer-events'] = 'none';
     const EV = new Event('dragend');
     registrationForm.dispatchEvent(EV);
   }
@@ -245,7 +245,7 @@ const registrationForm = document.body;
 
 registrationForm.addEventListener('dragover', (e) => {
   e.preventDefault();
-  dropField.style.pointerEvents = 'auto';
+  dropField.style['pointer-events'] = 'auto';
 
   function over() {
     const EV = new Event('dragend')
