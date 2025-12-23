@@ -210,6 +210,9 @@ dropField.addEventListener('dragover', (e) => {
     dropField.style['pointer-events'] = 'none';
     const EV = new Event('dragend');
     registrationForm.dispatchEvent(EV);
+    
+    this.removeEventListener('dragleave', over);
+    this.removeEventListener('drop', over);
   }
 
   this.addEventListener('dragleave', over);
@@ -250,8 +253,10 @@ registrationForm.addEventListener('dragover', (e) => {
   function over() {
     const EV = new Event('dragend')
     dropField.dispatchEvent(EV);
+    this.removeEventListener('dragleave', over);
+    this.removeEventListener('drop', over);
   }
 
   this.addEventListener('drop', over);
-  this.addEventListener('dragend', over);
+  this.addEventListener('dragleave', over);
 });
