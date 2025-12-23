@@ -198,3 +198,43 @@ fileField.addEventListener('change', (e) => {
     }
   }
 });
+
+
+const dropField = document.getElementById("dropField");
+
+dropField.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropField.style.opacity = '0.5';
+
+  function over() {
+    dropField.style.opacity = '0';
+  }
+
+  this.addEventListener('dragleave', over);
+
+  this.addEventListener('drop', (event) => {
+    event.preventDefault();
+    const [file] = [...event.dataTransfer.items]
+    .map((item) => item.getAsFile())
+    .filter((file) => file);
+    if(file) {
+      console.log(file.name);
+      let parts = file.name.split('.');
+      let ext = parts[parts.length - 1];
+      console.log(ext);
+      switch (ext.toLowerCase()) {
+        case 'jpg':
+        case 'bmp':
+        case 'png':
+          avatarPreview.style.display = 'block';
+          console.log("smf");
+          avatarPreview.src = URL.createObjectURL(file);
+          break;
+        default:
+          e.target.files = null;
+          avatarPreview.style.display = 'none';
+      }
+    }
+    over();
+  })
+});
