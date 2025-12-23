@@ -180,16 +180,16 @@ fileField.addEventListener('change', (e) => {
   const [file] = e.target.files;
 
   if(file) {
-    console.log(file.name);
+    //console.log(file.name);
     let parts = file.name.split('.');
     let ext = parts[parts.length - 1];
-    console.log(ext);
+    //console.log(ext);
     switch (ext.toLowerCase()) {
       case 'jpg':
       case 'bmp':
       case 'png':
         avatarPreview.style.display = 'block';
-        console.log("smf");
+        //console.log("smf");
         avatarPreview.src = URL.createObjectURL(file);
         break;
       default:
@@ -199,15 +199,19 @@ fileField.addEventListener('change', (e) => {
   }
 });
 
-
+let isDraggedOver = null;
 const dropField = document.getElementById("dropField");
 
 dropField.addEventListener('dragover', (e) => {
+  isDraggedOver = true;
   e.preventDefault();
   dropField.style.opacity = '0.5';
 
   function over() {
     dropField.style.opacity = '0';
+    isDraggedOver = null;
+    const EV = new Event('dragend');
+    registrationForm.dispatchEvent(EV);
   }
 
   this.addEventListener('dragleave', over);
@@ -221,13 +225,13 @@ dropField.addEventListener('dragover', (e) => {
       console.log(file.name);
       let parts = file.name.split('.');
       let ext = parts[parts.length - 1];
-      console.log(ext);
+      //console.log(ext);
       switch (ext.toLowerCase()) {
         case 'jpg':
         case 'bmp':
         case 'png':
           avatarPreview.style.display = 'block';
-          console.log("smf");
+          //console.log("smf");
           avatarPreview.src = URL.createObjectURL(file);
           break;
         default:
@@ -237,4 +241,22 @@ dropField.addEventListener('dragover', (e) => {
     }
     over();
   })
+});
+
+const registrationForm = document.body;
+
+registrationForm.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropField.style.pointerEvents = 'auto';
+
+  function over() {
+    const EV = new Event('dragend')
+    dropField.dispatchEvent(EV);
+    if(!isDraggedOver) {
+      dropField.style.pointerEvents = 'none';
+    }
+  }
+
+  this.addEventListener('drop', over);
+  this.addEventListener('dragend', over);
 });
