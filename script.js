@@ -199,17 +199,15 @@ fileField.addEventListener('change', (e) => {
   }
 });
 
-let isDraggedOver = null;
 const dropField = document.getElementById("dropField");
 
 dropField.addEventListener('dragover', (e) => {
-  isDraggedOver = true;
   e.preventDefault();
   dropField.style.opacity = '0.5';
 
   function over() {
     dropField.style.opacity = '0';
-    isDraggedOver = null;
+    dropField.style.pointerEvents = 'none';
     const EV = new Event('dragend');
     registrationForm.dispatchEvent(EV);
   }
@@ -252,9 +250,6 @@ registrationForm.addEventListener('dragover', (e) => {
   function over() {
     const EV = new Event('dragend')
     dropField.dispatchEvent(EV);
-    if(!isDraggedOver) {
-      dropField.style.pointerEvents = 'none';
-    }
   }
 
   this.addEventListener('drop', over);
