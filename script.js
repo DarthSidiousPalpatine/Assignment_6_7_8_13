@@ -147,13 +147,16 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     alert('Ошибка безопасности: неверный токен');
     return;
   }
-  
+
   formMessage.innerHTML = `
                 <h3>Профиль пользователя:</h3>
                 <p>Имя: ${escapeHTML(nameField.value)}</p>
                 <p>Email: ${escapeHTML(mailField.value)}</p>
                 <p>Пароль: ${escapeHTML(passwordField.value)}</p>
             `;
+  let newline = document.createElement('p');
+  newline.appendChild(avatarPreview.cloneNode(true));
+  formMessage.appendChild(newline);
 });
 
 function escapeHTML(text) {
@@ -166,3 +169,32 @@ function escapeHTML(text) {
   };
   return text.replace(/[&<>"']/g, char => map[char]);
 };
+
+
+
+
+const fileField = document.getElementById("fileInput");
+const avatarPreview = document.getElementById("avatar");
+
+fileField.addEventListener('change', (e) => {
+  const [file] = e.target.files;
+
+  if(file) {
+    console.log(file.name);
+    let parts = file.name.split('.');
+    let ext = parts[parts.length - 1];
+    console.log(ext);
+    switch (ext.toLowerCase()) {
+      case 'jpg':
+      case 'bmp':
+      case 'png':
+        avatarPreview.style.display = 'block';
+        console.log("smf");
+        avatarPreview.src = URL.createObjectURL(file);
+        break;
+      default:
+        e.target.files = null;
+        avatarPreview.style.display = 'none';
+    }
+  }
+});
