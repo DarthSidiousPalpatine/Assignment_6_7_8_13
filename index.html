@@ -1,0 +1,44 @@
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Умная форма регистрации</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+        <form id="registrationForm" class="form">
+          <input type="hidden" name="_csrf" value="csrf_token_12345">
+            <h2>Создать аккаунт</h2>
+            
+            <div class="form-group">
+                <label for="name">Имя пользователя:</label>
+                <input type="text" id="name" name="name" placeholder="Введите ваше имя">
+                <span class="error-message" data-error-for="name"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email адрес:</label>
+                <input type="email" id="email" name="email" placeholder="example@mail.com">
+                <span class="error-message" data-error-for="email"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" placeholder="Не менее 6 символов">
+                <span class="error-message" data-error-for="password"></span>
+            </div>
+
+            <div class="form-group checkbox-group">
+                <label for="agree">
+                    <input type="checkbox" id="agree" name="agree">
+                    Я принимаю условия использования
+                </label>
+                <span class="error-message" data-error-for="agree"></span>
+            </div>
+
+            <button type="submit" id="submitBtn" disabled>Зарегистрироваться</button>
+            
+            <div id="formMessage" class="form-message"></div>
+        </form>
+ </div>
+</body>
